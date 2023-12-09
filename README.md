@@ -90,6 +90,10 @@ Warning: The site has not been deployed. Some resources might not be available.
     at stringify (<anonymous>)
 ```
 
+<br /> 
+<br /> 
+<br /> 
+
 I also run into this issue if I try to deploy:
 
 ```bash
@@ -208,3 +212,118 @@ Need help with this error? Post it in #help on the SST Discord https://sst.dev/d
 
 ```
 
+<br /> 
+<br /> 
+<br /> 
+
+So, I have updated my `package.json` build script to be `sst bind next build`. Running `deploy` again results in:
+
+```bash 
+npx sst deploy --stage test
+SST v2.38.4
+
+➜  App:     sst-bind-bug-repro
+   Stage:   test
+   Region:  us-east-1
+   Account: 902024878759
+
+Next.js v14.0.4
+OpenNext v2.3.1
+
+┌─────────────────────────────────┐
+│ OpenNext — Building Next.js app │
+└─────────────────────────────────┘
+
+
+> sst-bind-bug-repro@0.1.0 build
+> sst bind next build
+
+Warning: The site has not been deployed. Some resources might not be available.
+
+   ▲ Next.js 14.0.4
+
+ ✓ Creating an optimized production build    
+ ✓ Compiled successfully
+ ✓ Linting and checking validity of types    
+ ✓ Collecting page data    
+   Generating static pages (1/5)  [=   ] 
+Error: Cannot use Config.NEW_SECRET. Please make sure it is bound to this function.
+    at Object.get (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/.next/server/app/page.js:35:31788)
+    at a (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/.next/server/app/page.js:35:29943)
+    at em (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:128334)
+    at /workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140034
+    at Array.toJSON (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:143612)
+    at stringify (<anonymous>)
+    at eE (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:131997)
+    at eR (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:132440)
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+   Generating static pages (4/5)  [==  ] 
+Error: Cannot use Config.NEW_SECRET. Please make sure it is bound to this function.
+    at Object.get (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/.next/server/app/page.js:35:31788)
+    at a (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/.next/server/app/page.js:35:29943)
+    at em (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:128334)
+    at /workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140034
+    at Array.toJSON (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:143612)
+    at stringify (<anonymous>)
+    at eE (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:131997)
+    at eR (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:132440)
+    at Timeout._onTimeout (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:129220)
+    at listOnTimeout (node:internal/timers:573:17)
+
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: Cannot use Config.NEW_SECRET. Please make sure it is bound to this function.
+    at Object.get (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/.next/server/app/page.js:35:31788)
+    at a (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/.next/server/app/page.js:35:29943)
+    at em (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:128334)
+    at /workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140034
+    at Array.toJSON (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:143612)
+    at stringify (<anonymous>)
+    at eE (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:131997)
+    at eR (/workspaces/sst-bind-bug-repro/sst-bind-bug-repro/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:132440)
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+ ✓ Generating static pages (5/5) 
+
+> Export encountered errors on following paths:
+        /page: /
+node:internal/errors:932
+  const err = new Error(message);
+              ^
+
+Error: Command failed: npm run build
+    at checkExecSyncError (node:child_process:890:11)
+    at Object.execSync (node:child_process:962:15)
+    at buildNextjsApp (file:///home/codespace/.npm/_npx/5e5e2f11d04ee7cb/node_modules/open-next/dist/build.js:107:8)
+    at build (file:///home/codespace/.npm/_npx/5e5e2f11d04ee7cb/node_modules/open-next/dist/build.js:25:11)
+    at file:///home/codespace/.npm/_npx/5e5e2f11d04ee7cb/node_modules/open-next/dist/index.js:9:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:218:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:329:24)
+    at async loadESM (node:internal/process/esm_loader:34:7)
+    at async handleMainPromise (node:internal/modules/run_main:113:12) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 5103,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v20.10.0
+
+Error: There was a problem building the "site" site.
+
+Need help with this error? Post it in #help on the SST Discord https://sst.dev/discord
+
+```
+
+<br /> 
+<br /> 
+<br /> 
+
+To get around the issue for now, I can:
+1. Comment out the use of the new secret from my Next.js app 
+2. Run `npx deploy`
+3. Run `npx sst secrets set NEW_SECRET bogus --stage test`
+4. Uncomment out the usage of the secret
+5. Run `npx deploy` again
+
+That works.
